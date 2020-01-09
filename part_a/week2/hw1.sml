@@ -35,3 +35,10 @@ fun get_nth(lst: string list, num: int) =
   else if num = 1
   then hd lst
   else get_nth(tl lst, num-1)
+
+val month_strings = [ "January", "February", "March", "April", "May", "June",
+                      "July", "August", "September", "October", "November", "December"]
+
+
+fun date_to_string(year:int, month: int, date: int) =
+  get_nth(month_strings, month) ^ " " ^ Int.toString(date) ^ ", " ^ Int.toString(year)
