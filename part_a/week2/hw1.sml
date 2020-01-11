@@ -42,3 +42,20 @@ val month_strings = [ "January", "February", "March", "April", "May", "June",
 
 fun date_to_string(year:int, month: int, date: int) =
   get_nth(month_strings, month) ^ " " ^ Int.toString(date) ^ ", " ^ Int.toString(year)
+
+(* fun number_before_reaching_sum(sum: int, lst: int list) = 
+  if null lst
+  then 0
+  else if sum < hd lst
+  then 1 + number_before_reaching_sum(sum - (hd lst), tl lst)
+  else number_before_reaching_sum(sum - (hd lst), tl lst) *)
+
+fun number_before_reaching_sum(sum: int, lst: int list) =
+  let
+    fun number_before_reaching_sum_helper(sum: int, lst: int list, cnt: int) =
+      if sum <= hd lst
+      then cnt
+      else number_before_reaching_sum_helper(sum-(hd lst), tl lst, cnt+1)
+  in
+    number_before_reaching_sum_helper(sum, lst, 0)
+  end
