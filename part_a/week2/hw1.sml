@@ -59,3 +59,10 @@ fun number_before_reaching_sum(sum: int, lst: int list) =
   in
     number_before_reaching_sum_helper(sum, lst, 0)
   end
+
+fun what_month(d: int) = 
+  let
+    val day_of_month = [31, 28 , 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  in
+    number_before_reaching_sum(d, day_of_month)
+  end
