@@ -43,13 +43,6 @@ val month_strings = [ "January", "February", "March", "April", "May", "June",
 fun date_to_string(year:int, month: int, date: int) =
   get_nth(month_strings, month) ^ " " ^ Int.toString(date) ^ ", " ^ Int.toString(year)
 
-(* fun number_before_reaching_sum(sum: int, lst: int list) = 
-  if null lst
-  then 0
-  else if sum < hd lst
-  then 1 + number_before_reaching_sum(sum - (hd lst), tl lst)
-  else number_before_reaching_sum(sum - (hd lst), tl lst) *)
-
 fun number_before_reaching_sum(sum: int, lst: int list) =
   let
     fun number_before_reaching_sum_helper(sum: int, lst: int list, cnt: int) =
@@ -66,3 +59,28 @@ fun what_month(d: int) =
   in
     number_before_reaching_sum(d, day_of_month) + 1
   end
+
+fun month_range(d1: int, d2: int) =
+  let
+    fun month_range_helper(d: int) =
+      if d > d2
+      then []
+      else what_month(d) :: month_range_helper(d+1)
+  in
+    month_range_helper(d1)
+  end
+  
+fun oldest(dates: (int*int*int) list) =
+  if null dates then NONE
+    else
+	let fun oldest_nonempty (sublist: (int*int*int) list) =
+	    if null (tl sublist) then (hd sublist)
+	    else
+          let val tail_oldest = oldest_nonempty (tl sublist)
+          in
+              if is_older (hd sublist, tail_oldest) then (hd sublist)
+              else
+                 tail_oldest
+          end
+	 in SOME (oldest_nonempty (dates))
+   end
